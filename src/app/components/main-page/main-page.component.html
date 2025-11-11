@@ -1,0 +1,70 @@
+<div class="main-page">
+  <header class="main-page__header">
+    <h1 class="main-page__title">Каталог фильмов</h1>
+    <app-search-bar (searchChange)="onSearch($event)"></app-search-bar>
+  </header>
+
+  @if (loading()) {
+    <div class="main-page__loading">
+      <div class="spinner"></div>
+      <p>Загрузка фильмов...</p>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="main-page__error">
+      <p>{{ error() }}</p>
+      <button (click)="loadMovies()" class="default-button">Попробовать снова</button>
+    </div>
+  }
+
+  @if (!loading() && !error() && movies().length === 0) {
+    <div class="main-page__empty">
+      <p>Фильмы не найдены</p>
+    </div>
+  }
+
+  @if (!loading() && !error() && movies().length > 0) {
+    <div class="main-page__grid">
+      @for (movie of movies(); track movie.id) {
+        <app-movie-card [movie]="movie"></app-movie-card>
+      }
+    </div>
+
+    <div class="main-page__pagination">
+      <button
+        class="default-button pagination__button"
+        [class.pagination__button--disabled]="currentPage() === 1"
+        [disabled]="currentPage() === 1"
+        (click)="onPageChange(currentPage() - 1)"
+      >
+        ← Назад
+      </button>
+
+      <div class="pagination__pages">
+        @for (page of visiblePages; track page) {
+          @if (page === -1) {
+            <span class="pagination__dots">...</span>
+          } @else {
+            <button
+              class="pagination__page"
+              [class.pagination__page--active]="page === currentPage()"
+              (click)="onPageChange(page)"
+            >
+              {{ page }}
+            </button>
+          }
+        }
+      </div>
+
+      <button
+        class="default-button pagination__button"
+        [class.pagination__button--disabled]="currentPage() === totalPages()"
+        [disabled]="currentPage() === totalPages()"
+        (click)="onPageChange(currentPage() + 1)"
+      >
+        Вперёд →
+      </button>
+    </div>
+  }
+</div>

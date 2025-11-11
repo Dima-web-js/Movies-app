@@ -1,0 +1,25 @@
+<a [routerLink]="['/movie', movie().id]" class="movie-card">
+  <div class="movie-card__poster">
+    @if (posterUrl) {
+      <img
+        [ngSrc]="posterUrl"
+        width="240"
+        height="400"
+        [alt]="displayTitle"
+        class="movie-card__image"
+      />
+    } @else {
+      <div class="movie-card__placeholder">
+        <span>Упс, картинка не нашлась :(</span>
+        <span>Что ж, api-то бесплатный</span>
+      </div>
+    }
+    @if (rating) {
+      <div class="movie-card__rating">{{ rating.toFixed(1) }}</div>
+    }
+  </div>
+  <div class="movie-card__info">
+    <h3 class="movie-card__title">{{ displayTitle }}</h3>
+    <p class="movie-card__year">{{ movie().year }}</p>
+  </div>
+</a>

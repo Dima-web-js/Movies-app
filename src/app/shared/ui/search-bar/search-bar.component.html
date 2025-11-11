@@ -1,0 +1,13 @@
+<div class="search-bar">
+  <input
+    type="text"
+    class="search-input"
+    placeholder="Поиск фильмов..."
+    [(ngModel)]="searchQuery"
+    (input)="onInput()"
+    (keyup.enter)="onSearch()"
+  />
+  <button class="default-button" (click)="onSearch()" type="button">
+    Поиск
+  </button>
+</div>

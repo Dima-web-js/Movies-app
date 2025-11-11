@@ -1,0 +1,112 @@
+  @if (!loading() && !error() && movie()) {
+  @if (loading()) {
+    <div class="movie-detail__loading">
+      <div class="spinner"></div>
+      <p>Загрузка информации о фильме...</p>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="movie-detail__error">
+      <p>{{ error() }}</p>
+      <button (click)="loadMovie(movie()?.id || 0)" class="retry-button">Попробовать снова</button>
+    </div>
+  }
+
+  <div class="movie-detail">
+    @if (backdropUrl) {
+      <div class="movie-detail__backdrop">
+        <img [src]="backdropUrl" [alt]="displayTitle" />
+        <div class="backdrop-overlay"></div>
+      </div>
+    } @else {
+      <div class="movie-detail__backdrop movie-detail__backdrop--placeholder">
+        <div class="placeholder-gradient"></div>
+        <div class="backdrop-overlay"></div>
+      </div>
+    }
+
+    <div class="movie-detail__body">
+      <a routerLink="/" class="default-button">← Назад к каталогу</a>
+
+      <div class="movie-detail__main">
+        <div class="movie-detail__poster">
+          <img [src]="posterUrl" [alt]="displayTitle" />
+        </div>
+
+        <div class="movie-detail__info">
+          <h1 class="movie-detail__title">{{ displayTitle }}</h1>
+
+          @if (movie()!.alternativeName && movie()!.alternativeName !== displayTitle) {
+            <p class="movie-detail__alt-title">{{ movie()!.alternativeName }}</p>
+          }
+
+          <div class="movie-detail__meta">
+            @if (rating) {
+              <div class="meta-item meta-item--rating">
+                <span class="meta-label">Рейтинг:</span>
+                <span class="rating-value">{{ rating.toFixed(1) }}</span>
+              </div>
+            }
+
+            @if (movie()!.year) {
+              <div class="meta-item">
+                <span class="meta-label">Год:</span>
+                <span>{{ movie()!.year }}</span>
+              </div>
+            }
+
+            @if (genres) {
+              <div class="meta-item">
+                <span class="meta-label">Жанры:</span>
+                <span>{{ genres }}</span>
+              </div>
+            }
+
+            @if (countries) {
+              <div class="meta-item">
+                <span class="meta-label">Страны:</span>
+                <span>{{ countries }}</span>
+              </div>
+            }
+
+            @if (movie()!.movieLength) {
+              <div class="meta-item">
+                <span class="meta-label">Длительность:</span>
+                <span>{{ movie()!.movieLength }} мин</span>
+              </div>
+            }
+
+            @if (movie()!.ageRating) {
+              <div class="meta-item">
+                <span class="meta-label">Возраст:</span>
+                <span>{{ movie()!.ageRating }}+</span>
+              </div>
+            }
+          </div>
+
+          @if (movie()!.description) {
+            <div class="movie-detail__description">
+              <h2>Описание</h2>
+              <p>{{ movie()!.description }}</p>
+            </div>
+          }
+
+          @if (directors) {
+            <div class="movie-detail__crew">
+              <h3>Режиссёры</h3>
+              <p>{{ directors }}</p>
+            </div>
+          }
+
+          @if (actors) {
+            <div class="movie-detail__crew">
+              <h3>Актёры</h3>
+              <p>{{ actors }}</p>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+}
