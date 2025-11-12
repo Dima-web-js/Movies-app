@@ -1,11 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { NgOptimizedImage } from '@angular/common';
 import { MoviesService } from '../../shared/services/movies.service';
 import { Movie } from '../../shared/models/movie.model';
 
 @Component({
   selector: 'app-movie-detail',
-  imports: [RouterLink],
+  imports: [RouterLink, NgOptimizedImage],
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

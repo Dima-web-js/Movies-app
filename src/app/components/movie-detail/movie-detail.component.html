@@ -16,7 +16,7 @@
   <div class="movie-detail">
     @if (backdropUrl) {
       <div class="movie-detail__backdrop">
-        <img [src]="backdropUrl" [alt]="displayTitle" />
+        <img [ngSrc]="backdropUrl" width="1344" height="756" [alt]="displayTitle" priority />
         <div class="backdrop-overlay"></div>
       </div>
     } @else {
@@ -31,7 +31,7 @@
 
       <div class="movie-detail__main">
         <div class="movie-detail__poster">
-          <img [src]="posterUrl" [alt]="displayTitle" />
+          <img [ngSrc]="posterUrl" width="320" height="480" [alt]="displayTitle" />
         </div>
 
         <div class="movie-detail__info">

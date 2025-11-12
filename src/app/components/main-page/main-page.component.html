@@ -24,12 +24,12 @@
     </div>
   }
 
-  @if (!loading() && !error() && movies().length > 0) {
-    <div class="main-page__grid">
-      @for (movie of movies(); track movie.id) {
-        <app-movie-card [movie]="movie"></app-movie-card>
-      }
-    </div>
+      @if (!loading() && !error() && movies().length > 0) {
+        <div class="main-page__grid">
+          @for (movie of movies(); track trackByMovieId($index, movie)) {
+            <app-movie-card [movie]="movie"></app-movie-card>
+          }
+        </div>
 
     <div class="main-page__pagination">
       <button
@@ -41,21 +41,21 @@
         ← Назад
       </button>
 
-      <div class="pagination__pages">
-        @for (page of visiblePages; track page) {
-          @if (page === -1) {
-            <span class="pagination__dots">...</span>
-          } @else {
-            <button
-              class="pagination__page"
-              [class.pagination__page--active]="page === currentPage()"
-              (click)="onPageChange(page)"
-            >
-              {{ page }}
-            </button>
-          }
-        }
-      </div>
+          <div class="pagination__pages">
+            @for (page of visiblePages; track trackByPageNumber($index, page)) {
+              @if (page === -1) {
+                <span class="pagination__dots">...</span>
+              } @else {
+                <button
+                  class="pagination__page"
+                  [class.pagination__page--active]="page === currentPage()"
+                  (click)="onPageChange(page)"
+                >
+                  {{ page }}
+                </button>
+              }
+            }
+          </div>
 
       <button
         class="default-button pagination__button"

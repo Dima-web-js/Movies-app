@@ -90,4 +90,14 @@ export class MainPageComponent implements OnInit {
 
     return rangeWithDots;
   }
+
+  // TrackBy function for performance optimization
+  trackByMovieId(index: number, movie: Movie): number {
+    return movie.id;
+  }
+
+  // TrackBy function for pagination
+  trackByPageNumber(index: number, page: number): number {
+    return page;
+  }
 }
